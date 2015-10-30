@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\PSO">
+      <UniqueIdentifier>{06984950-90dc-4bfd-9488-16ec4a406e7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\PSO\algorithms">
+      <UniqueIdentifier>{2f5c333b-b367-493a-9138-9a2264f49840}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\network">
+      <UniqueIdentifier>{e0e9639c-6e45-4f83-91e2-74c5eb180a01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\PSO">
+      <UniqueIdentifier>{cec5cdec-0bfb-4a4a-b87b-809fc18922f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\PSO\algorithms">
+      <UniqueIdentifier>{d3169fb4-c17e-4269-b232-fbdc3b45896b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\network">
+      <UniqueIdentifier>{37dc2aed-1398-4187-baa7-67a44556963a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="randomNumGenerator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="benchmarkFunc.h">
+      <Filter>头文件\PSO</Filter>
+    </ClInclude>
+    <ClInclude Include="functions.h">
+      <Filter>头文件\PSO</Filter>
+    </ClInclude>
+    <ClInclude Include="particle.h">
+      <Filter>头文件\PSO</Filter>
+    </ClInclude>
+    <ClInclude Include="parameters.h">
+      <Filter>头文件\PSO</Filter>
+    </ClInclude>
+    <ClInclude Include="finalResult.h">
+      <Filter>头文件\PSO</Filter>
+    </ClInclude>
+    <ClInclude Include="HierarchyPSO.h">
+      <Filter>头文件\PSO\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="PSO.h">
+      <Filter>头文件\PSO</Filter>
+    </ClInclude>
+    <ClInclude Include="standardPSO.h">
+      <Filter>头文件\PSO\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="performance.h">
+      <Filter>头文件\PSO</Filter>
+    </ClInclude>
+    <ClInclude Include="PSOalgorithms.h">
+      <Filter>头文件\PSO\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="network.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="hierarchyNetwork.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="node.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="binTreeNetwork.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PartlyFeedbackPSO.h">
+      <Filter>头文件\PSO\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="ScaleFreeNetwork.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="Networks.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="fullyConnectedNetwork.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="FIPS.h">
+      <Filter>头文件\PSO\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="MixedStrategyPSO.h">
+      <Filter>头文件\PSO\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="ringNetwork.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="randomNumGenerator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="benchmarkFunc.cpp">
+      <Filter>源文件\PSO</Filter>
+    </ClCompile>
+    <ClCompile Include="finalResult.cpp">
+      <Filter>源文件\PSO</Filter>
+    </ClCompile>
+    <ClCompile Include="functions.cpp">
+      <Filter>源文件\PSO</Filter>
+    </ClCompile>
+    <ClCompile Include="particle.cpp">
+      <Filter>源文件\PSO</Filter>
+    </ClCompile>
+    <ClCompile Include="performance.cpp">
+      <Filter>源文件\PSO</Filter>
+    </ClCompile>
+    <ClCompile Include="PSO.cpp">
+      <Filter>源文件\PSO</Filter>
+    </ClCompile>
+    <ClCompile Include="HierarchyPSO.cpp">
+      <Filter>源文件\PSO\algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="standardPSO.cpp">
+      <Filter>源文件\PSO\algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="hierarchyNetwork.cpp">
+      <Filter>源文件\network</Filter>
+    </ClCompile>
+    <ClCompile Include="network.cpp">
+      <Filter>源文件\network</Filter>
+    </ClCompile>
+    <ClCompile Include="node.cpp">
+      <Filter>源文件\network</Filter>
+    </ClCompile>
+    <ClCompile Include="binTreeNetwork.cpp">
+      <Filter>源文件\network</Filter>
+    </ClCompile>
+    <ClCompile Include="PartlyFeedbackPSO.cpp">
+      <Filter>源文件\PSO\algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="ScaleFreeNetwork.cpp">
+      <Filter>源文件\network</Filter>
+    </ClCompile>
+    <ClCompile Include="fullyConnectedNetwork.cpp">
+      <Filter>源文件\network</Filter>
+    </ClCompile>
+    <ClCompile Include="FIPS.cpp">
+      <Filter>源文件\PSO\algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="MixedStrategyPSO.cpp">
+      <Filter>源文件\PSO\algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="ringNetwork.cpp">
+      <Filter>源文件\network</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="PSOFramework.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
