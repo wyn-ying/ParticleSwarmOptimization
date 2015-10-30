@@ -465,14 +465,7 @@ void runMSPSO_analyze()
 						inputNetwork[i].reset();
 					}
 					inputNetwork=ringConstruct(k);
-					//                cout<<"adjacMatrix generated successfully!"<<endl;
-					//                for(int i=0;i!=nodeNum;++i)
-					//                {
-					//                    for(int j=0;j!=nodeNum;++j)
-					//                        cout<<MatrixOfHierarchyNetwork[i][j]<<"\t";
-					//                    cout<<endl;
-					//                }
-					//                system("pause");
+
 					for(int arepeat=0;arepeat!=AlgoRepeatNum;++arepeat)
 					{
 						performance thisRun;
