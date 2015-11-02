@@ -307,7 +307,7 @@ performance MSPSO(network _network,int funcID,int FIPSAmount)
 		//        cout<<fgbest<<endl;
 		if (!(iter%Interval))
 		{
-			resultOfThisRun.solutions[iter % Interval] = fgbest;
+			resultOfThisRun.solutions[iter / Interval] = fgbest;
 		}
 		++iter;
 	}
