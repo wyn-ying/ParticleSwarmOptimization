@@ -23,7 +23,7 @@ double RosenbrockCalc(array<double,Dimension> x)
 {
 	double f=0;
 	int i;
-	for(i=0;i!=Dimension;++i)
+	for(i=0;i!=Dimension-1;++i)
 		f=f+(100*(x[i+1]-x[i]*x[i])*(x[i+1]-x[i]*x[i])+(x[i]-1)*(x[i]-1));
 	return f;
 }
