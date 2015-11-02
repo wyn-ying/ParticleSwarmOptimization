@@ -472,14 +472,14 @@ void runMSPSO_analyze()
 
 	for (int k = 2;k <= 2;k += 1)	//2k is the degree of the particle in ring network
 	{
-		for (int funcID = 1;funcID <= 7;funcID += 2)
+		for (int funcID = 2;funcID <= 7;funcID += 2)
 		{
 			stringstream txtname;
 			txtname << "results-fig2-funcID=" << funcID << ".csv";
 			ofstream output(txtname.str());
 			output << "FIAmount,fitness,speed,rate" << endl;
 
-			for (int FIAmount = 50;FIAmount <= ParticleAmount;FIAmount += 5)	//population of FIPS particles
+			for (int FIAmount = 0;FIAmount <= ParticleAmount;FIAmount += 5)	//population of FIPS particles
 			{
 				double avgFitness = 0;
 				int avgSpeed = 0;
