@@ -472,7 +472,7 @@ void runMSPSO_analyze()
 
 	for (int k = 2;k <= 2;k += 1)	//2k is the degree of the particle in ring network
 	{
-		for (int funcID = 1;funcID <= 7;++funcID)
+		for (int funcID = 2;funcID <= 7;funcID += 2)
 		{
 			stringstream txtname;
 			txtname << "results-fig2-funcID=" << funcID << ".csv";
