@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-//	runMSPSO_analyze();
-	runFIPS();
+	runMSPSO_analyze();
+//	runFIPS();
 	return 0;
 }
