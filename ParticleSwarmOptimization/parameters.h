@@ -11,16 +11,16 @@
 
 #define Dimension 30    /**< the dimension of the problem */
 
-#define MaxIteration 3000      /**< the maximum iterations */
+#define MaxIteration 5000      /**< the maximum iterations */
 
 #define Chi 0.7298
 
 #define B 2.05         /**< v=Chi*(v+B*r1*(pb-x)+B*r2*(lb-x)) */
 
-#define AlgoRepeatNum 50     /**< how many times the algorithm repeats */
+#define AlgoRepeatNum 100     /**< how many times the algorithm repeats */
 
 #define NetwRepeatNum 1     /**< how many times the network repeats */
 
-
+#define Interval 100	/**< for fitness-itreation plot*/
 
 #endif // PARAMETERS_H

@@ -94,8 +94,7 @@ void InitSwarmOfMSPSO(network _network,int funcID)
 	//    cout<<"In initiation, fgbest="<<fgbest<<endl;
 	//    system("pause");
 }
-
-void DivideSwarm(int FIPSAmount)//divide the swarm into two subswarm,one take traditional strategy, the other take FIPS
+/*void DivideSwarm(int FIPSAmount)//divide the swarm into two subswarm,one take traditional strategy, the other take FIPS
 {
 	for (int i=0;i!=ParticleAmount;++i)
 	{
@@ -124,6 +123,27 @@ void DivideSwarm(int FIPSAmount)//divide the swarm into two subswarm,one take tr
 	//cout<<"FIPS ID are "<<endl;
 	//for (auto it=FIPSID.begin();it!=FIPSID.end();++it)
 	//	cout<<*it<<"\t";
+}*/
+void DivideSwarm(int FIPSAmount)
+{
+	vector<int> FIPSID;
+	for (int i = 0; i < ParticleAmount; i++)
+	{
+		FIPSID.push_back(i);
+	}
+	for (int i = 0; i < FIPSAmount; i++)
+	{
+		int tmp = i + rand() % (ParticleAmount - i);
+		swap(FIPSID[i], FIPSID[tmp]);
+	}
+	for (int i = 0; i < FIPSAmount; i++)
+	{
+		swarm[i].isFIPS = 1;
+	}
+	for (int i = FIPSAmount; i < ParticleAmount; i++)
+	{
+		swarm[i].isFIPS = 0;
+	}
 }
 
 void UpdateSwarmOfMSPSO(int funcID, int FIPSAmount)//the amount of particles that take the FIPS strategy
@@ -285,6 +305,10 @@ performance MSPSO(network _network,int funcID,int FIPSAmount)
 			break;
 		}
 		//        cout<<fgbest<<endl;
+		if (!(iter%Interval))
+		{
+			resultOfThisRun.solutions[iter % Interval] = fgbest;
+		}
 		++iter;
 	}
 	resultOfThisRun.solution=fgbest;
@@ -305,7 +329,7 @@ void runMSPSO()
 			finalResult RosenbrockResult;
 			finalResult RastriginResult;
 			finalResult QuaResult;
-			finalResult GriwankResult;
+			finalResult GriewankResult;
 			finalResult AckleyResult;
 			finalResult weierstrassResult;
 			finalResult noncontinuousRasResult;
@@ -353,8 +377,8 @@ void runMSPSO()
 							QuaResult.speeds[nrepeat*AlgoRepeatNum+arepeat]=thisRun.speed;
 							break;
 						case 5:
-							GriwankResult.solutions[nrepeat*AlgoRepeatNum+arepeat]=thisRun.solution;
-							GriwankResult.speeds[nrepeat*AlgoRepeatNum+arepeat]=thisRun.speed;
+							GriewankResult.solutions[nrepeat*AlgoRepeatNum+arepeat]=thisRun.solution;
+							GriewankResult.speeds[nrepeat*AlgoRepeatNum+arepeat]=thisRun.speed;
 							break;
 						case 6:
 							AckleyResult.solutions[nrepeat*AlgoRepeatNum+arepeat]=thisRun.solution;
@@ -397,9 +421,9 @@ void runMSPSO()
 			QuaResult.finalSpeed=QuaResult.calcuFinalSpeed();
 			QuaResult.succRate=QuaResult.calcuFinalSuccRate();
 
-			GriwankResult.finalSolution=GriwankResult.calcuFinalSolution();
-			GriwankResult.finalSpeed=GriwankResult.calcuFinalSpeed();
-			GriwankResult.succRate=GriwankResult.calcuFinalSuccRate();
+			GriewankResult.finalSolution=GriewankResult.calcuFinalSolution();
+			GriewankResult.finalSpeed=GriewankResult.calcuFinalSpeed();
+			GriewankResult.succRate=GriewankResult.calcuFinalSuccRate();
 
 			AckleyResult.finalSolution=AckleyResult.calcuFinalSolution();
 			AckleyResult.finalSpeed=AckleyResult.calcuFinalSpeed();
@@ -427,7 +451,7 @@ void runMSPSO()
 				<<"\t"<<RosenbrockResult.finalSolution<<"\t"<<RosenbrockResult.finalSpeed<<"\t"<<RosenbrockResult.succRate
 				<<"\t"<<RastriginResult.finalSolution<<"\t"<<RastriginResult.finalSpeed<<"\t"<<RastriginResult.succRate
 				<<"\t"<<QuaResult.finalSolution<<"\t"<<QuaResult.finalSpeed<<"\t"<<QuaResult.succRate
-				<<"\t"<<GriwankResult.finalSolution<<"\t"<<GriwankResult.finalSpeed<<"\t"<<GriwankResult.succRate
+				<<"\t"<<GriewankResult.finalSolution<<"\t"<<GriewankResult.finalSpeed<<"\t"<<GriewankResult.succRate
 				<<"\t"<<AckleyResult.finalSolution<<"\t"<<AckleyResult.finalSpeed<<"\t"<<AckleyResult.succRate
 				<<"\t"<<weierstrassResult.finalSolution<<"\t"<<weierstrassResult.finalSpeed<<"\t"<<weierstrassResult.succRate
 				<<"\t"<<noncontinuousRasResult.finalSolution<<"\t"<<noncontinuousRasResult.finalSpeed<<"\t"<<noncontinuousRasResult.succRate
@@ -446,17 +470,25 @@ void runMSPSO_analyze()
 	srand((unsigned)time(0));
 	rand();
 
-	for (int k = 3;k <= 25 && k<5;k += 1)	//2k is the degree of the particle in ring network
+	for (int k = 2;k <= 2;k += 1)	//2k is the degree of the particle in ring network
 	{
-		stringstream txtname;
-		txtname << "results__k=" << k << ".csv";
-		ofstream output(txtname.str());
-		for (int FIAmount=0;FIAmount<=ParticleAmount;FIAmount+=5)	//population of FIPS particles?
+		for (int funcID = 1;funcID <= 7;++funcID)
 		{
-			int FIPSisGbest=0;
-			int nonFIPSisGbest=0;
-			for(int funcID=1;funcID<=1;++funcID)
+			stringstream txtname;
+			txtname << "results-fig2-funcID=" << funcID << ".csv";
+			ofstream output(txtname.str());
+			output << "FIAmount,fitness,speed,rate" << endl;
+
+			for (int FIAmount = 0;FIAmount <= ParticleAmount;FIAmount += 5)	//population of FIPS particles
 			{
+				double avgFitness = 0;
+				int avgSpeed = 0;
+				int avgRate = 0;
+				array<double, MaxIteration / Interval + 1> avgFitnesses;
+				for (int i = 0; i < MaxIteration / Interval + 1; i++)
+				{
+					avgFitnesses[i] = 0;
+				}
 				cout<<"k="<<k<<"\t"<<"FIAmount="<<FIAmount<<"\t"<<"FuncID="<<funcID<<endl;
 				for(int nrepeat=0;nrepeat!=NetwRepeatNum;++nrepeat)
 				{
@@ -470,16 +502,35 @@ void runMSPSO_analyze()
 					{
 						performance thisRun;
 						thisRun=MSPSO(inputNetwork,funcID,FIAmount);
-						FIPSisGbest+=thisRun.FIPSisGbest;
-						nonFIPSisGbest+=thisRun.nonFIPSisGbest;
+						for (int i = 0; i < MaxIteration / Interval + 1; i++)
+						{
+							avgFitnesses[i] += thisRun.solutions[i];
+						}
+						avgFitness += thisRun.solution;
+						avgSpeed += thisRun.speed;
+						if (thisRun.speed != MaxIteration) {
+							avgRate ++;
+						}
 					}
 				}
+				output << FIAmount;
+				for (int i = 0; i < MaxIteration / Interval + 1; i++)
+				{
+					output << ',' << avgFitnesses[i];
+				}
+				output << endl;
+					//<< avgFitness / (NetwRepeatNum*AlgoRepeatNum) << ","//Êä³öavgFitnesses½á¹û
+					/*
+					-------------------------
+					-------------------------
+					-------------------------
+					-------------------------
+					*/
+					//<< (double)avgSpeed / (NetwRepeatNum*AlgoRepeatNum) << ","
+					//<< (double)avgRate / (NetwRepeatNum*AlgoRepeatNum) << endl;
 			}
-
-
-			output<<FIPSisGbest<<"\t"<<nonFIPSisGbest<<endl;
+			output.close();
 		}
-		output.close();
 	}
 	outputResults.close();
 }
