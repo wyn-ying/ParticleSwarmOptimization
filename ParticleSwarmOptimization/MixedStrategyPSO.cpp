@@ -138,11 +138,11 @@ void DivideSwarm(int FIPSAmount)
 	}
 	for (int i = 0; i < FIPSAmount; i++)
 	{
-		swarm[i].isFIPS = 1;
+		swarm[FIPSID[i]].isFIPS = 1;
 	}
 	for (int i = FIPSAmount; i < ParticleAmount; i++)
 	{
-		swarm[i].isFIPS = 0;
+		swarm[FIPSID[i]].isFIPS = 0;
 	}
 }
 
