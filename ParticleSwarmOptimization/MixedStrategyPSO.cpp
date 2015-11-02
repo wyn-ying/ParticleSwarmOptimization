@@ -479,7 +479,7 @@ void runMSPSO_analyze()
 			ofstream output(txtname.str());
 			output << "FIAmount,fitness,speed,rate" << endl;
 
-			for (int FIAmount = 0;FIAmount <= ParticleAmount;FIAmount += 5)	//population of FIPS particles
+			for (int FIAmount = 0;FIAmount <= ParticleAmount;FIAmount += 10)	//population of FIPS particles
 			{
 				double avgFitness = 0;
 				int avgSpeed = 0;
