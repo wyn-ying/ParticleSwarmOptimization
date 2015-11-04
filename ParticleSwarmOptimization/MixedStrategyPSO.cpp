@@ -477,7 +477,6 @@ void runMSPSO_analyze()
 			stringstream txtname;
 			txtname << "results-fig2-funcID=" << funcID << ".csv";
 			ofstream output(txtname.str());
-			output << "FIAmount,fitness,speed,rate" << endl;
 
 			for (int FIAmount = 0;FIAmount <= ParticleAmount;FIAmount += 5)	//population of FIPS particles
 			{
@@ -514,11 +513,11 @@ void runMSPSO_analyze()
 					}
 				}
 				output << FIAmount;
-				for (int i = 0; i < MaxIteration / Interval + 1; i++)
+				for (int i = 0; i < MaxIteration / Interval; i++)	//最后5000代输出不对，用solution取代，因此i!=51，到50即可
 				{
 					output << ',' << avgFitnesses[i]/ (NetwRepeatNum*AlgoRepeatNum);
 				}
-				output << endl;
+				output << ',' << avgFitness / (NetwRepeatNum*AlgoRepeatNum) << endl;
 					//<< avgFitness / (NetwRepeatNum*AlgoRepeatNum) << ","//输出avgFitnesses结果
 					/*
 					-------------------------
