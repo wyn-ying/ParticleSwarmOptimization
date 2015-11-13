@@ -211,6 +211,9 @@ int MSPSOsetGbest()
 
 performance MSPSO(network _network,int funcID,int FIPSAmount)
 {
+	int Interv[24] = { 0,10,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900,1000,2000,3000,4000,5000 };
+	int cnt = 0;
+
 	InitSwarmOfMSPSO(_network,funcID);
 	int iter=0;
 	int hasConverged=0;
@@ -305,9 +308,10 @@ performance MSPSO(network _network,int funcID,int FIPSAmount)
 			break;
 		}
 		//        cout<<fgbest<<endl;
-		if (!(iter%Interval))
+		if (iter==Interv[cnt])
 		{
-			resultOfThisRun.solutions[iter / Interval] = fgbest;
+			resultOfThisRun.solutions[cnt] = fgbest;
+			cnt++;
 		}
 		++iter;
 	}
@@ -472,7 +476,7 @@ void runMSPSO_analyze()
 
 	for (int k = 2;k <= 2;k += 1)	//2k is the degree of the particle in ring network
 	{
-		for (int funcID = 2;funcID <= 7;funcID += 2)
+		for (int funcID = 2;funcID <= 6;funcID += 2)
 		{
 			stringstream txtname;
 			txtname << "results-fig2-funcID=" << funcID << ".csv";
@@ -501,7 +505,7 @@ void runMSPSO_analyze()
 					{
 						performance thisRun;
 						thisRun=MSPSO(inputNetwork,funcID,FIAmount);
-						for (int i = 0; i < MaxIteration / Interval + 1; i++)
+						for (int i = 0; i < 24; i++)
 						{
 							avgFitnesses[i] += thisRun.solutions[i];
 						}
@@ -513,7 +517,7 @@ void runMSPSO_analyze()
 					}
 				}
 				output << FIAmount;
-				for (int i = 0; i < MaxIteration / Interval; i++)	//最后5000代输出不对，用solution取代，因此i!=51，到50即可
+				for (int i = 0; i < 24; i++)	//最后5000代输出不对，用solution取代，因此i!=51，到50即可
 				{
 					output << ',' << avgFitnesses[i]/ (NetwRepeatNum*AlgoRepeatNum);
 				}
