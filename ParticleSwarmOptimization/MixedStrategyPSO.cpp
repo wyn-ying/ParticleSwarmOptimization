@@ -470,12 +470,12 @@ void runMSPSO_analyze()
 	srand((unsigned)time(0));
 	rand();
 
-	for (int k = 2;k <= 2;k += 1)	//2k is the degree of the particle in ring network
+	for (int k = 1;k <= 25;k += 1)	//2k is the degree of the particle in ring network
 	{
-		for (int funcID = 2;funcID <= 7;funcID += 2)
+		for (int funcID = 1;funcID <= 1;funcID += 2)
 		{
 			stringstream txtname;
-			txtname << "results-fig2-funcID=" << funcID << ".csv";
+			txtname << "results-fig3-funcID=" << funcID << ".csv";
 			ofstream output(txtname.str());
 
 			for (int FIAmount = 0;FIAmount <= ParticleAmount;FIAmount += 5)	//population of FIPS particles
@@ -513,10 +513,10 @@ void runMSPSO_analyze()
 					}
 				}
 				output << FIAmount;
-				for (int i = 0; i < MaxIteration / Interval; i++)	//最后5000代输出不对，用solution取代，因此i!=51，到50即可
+				/*for (int i = 0; i < MaxIteration / Interval; i++)	//最后5000代输出不对，用solution取代，因此i!=51，到50即可
 				{
 					output << ',' << avgFitnesses[i]/ (NetwRepeatNum*AlgoRepeatNum);
-				}
+				}*/
 				output << ',' << avgFitness / (NetwRepeatNum*AlgoRepeatNum) << endl;
 					//<< avgFitness / (NetwRepeatNum*AlgoRepeatNum) << ","//输出avgFitnesses结果
 					/*
