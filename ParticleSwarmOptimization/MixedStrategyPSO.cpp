@@ -211,7 +211,7 @@ int MSPSOsetGbest()
 
 performance MSPSO(network _network,int funcID,int FIPSAmount)
 {
-	int Interv[24] = { 0,10,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900,1000,2000,3000,4000,5000 };
+	int Interv[28] = { 0,10,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900,1000,2000,3000,4000,5000,6000,7000,8000,9000};
 	int cnt = 0;
 
 	InitSwarmOfMSPSO(_network,funcID);
@@ -219,7 +219,7 @@ performance MSPSO(network _network,int funcID,int FIPSAmount)
 	int hasConverged=0;
 	performance resultOfThisRun;
 	DivideSwarm(FIPSAmount);
-	while(iter < MaxIteration)
+	while(iter < MaxIteration+5000)
 	{
 		UpdateSwarmOfMSPSO(funcID,FIPSAmount);
 		setPbest();
@@ -505,7 +505,7 @@ void runMSPSO_analyze()
 					{
 						performance thisRun;
 						thisRun=MSPSO(inputNetwork,funcID,FIAmount);
-						for (int i = 0; i < 24; i++)
+						for (int i = 0; i < 28; i++)
 						{
 							avgFitnesses[i] += thisRun.solutions[i];
 						}
@@ -517,7 +517,7 @@ void runMSPSO_analyze()
 					}
 				}
 				output << FIAmount;
-				for (int i = 0; i < 24; i++)	//最后5000代输出不对，用solution取代，因此i!=51，到50即可
+				for (int i = 0; i < 28; i++)	//最后5000代输出不对，用solution取代，因此i!=51，到50即可
 				{
 					output << ',' << avgFitnesses[i]/ (NetwRepeatNum*AlgoRepeatNum);
 				}
