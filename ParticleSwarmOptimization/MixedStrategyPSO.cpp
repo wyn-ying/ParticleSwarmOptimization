@@ -471,7 +471,7 @@ void runMSPSO_analyze()
 	for (int funcID = 1;funcID <= 6;funcID += 2)
 	{
 		stringstream txtname;
-		txtname << "results-fig5-funcID=" << funcID << ".txt";
+		txtname << "square-results-fig5-funcID=" << funcID << ".txt";
 		ofstream output(txtname.str());
 
 		for (int FIAmount = 0;FIAmount <= ParticleAmount;FIAmount += 5)	//population of FIPS particles
