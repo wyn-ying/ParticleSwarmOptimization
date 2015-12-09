@@ -479,25 +479,20 @@ void runMSPSO_analyze()
 			double avgFitness = 0;
 			int avgSpeed = 0;
 			int avgRate = 0;
-			//				cout<<"k="<<k<<"\t"<<"FIAmount="<<FIAmount<<"\t"<<"FuncID="<<funcID<<endl;
+			cout<<"FIAmount="<<FIAmount<<"\t"<<"FuncID="<<funcID<<endl;
 			for (int nrepeat = 0;nrepeat != NetwRepeatNum;++nrepeat)
 			{
 				for (int i = 0;i != nodeNum;++i)
 				{
 					inputNetwork[i].reset();
 				}
-				inputNetwork = latticeConstruct();
+				inputNetwork = fullyConnectedNetwConstruct();
 
 				for (int arepeat = 0;arepeat != AlgoRepeatNum;++arepeat)
 				{
+					cout << arepeat << "\t";
 					performance thisRun;
-					if (FIAmount == 50)
-					{
-						thisRun = MSPSO(inputNetwork, funcID, 49);
-					}
-					else {
-						thisRun = MSPSO(inputNetwork, funcID, FIAmount);
-					}
+					thisRun = MSPSO(inputNetwork, funcID, FIAmount);
 					avgFitness += thisRun.solution;
 					avgSpeed += thisRun.speed;
 					if (thisRun.speed != MaxIteration) {

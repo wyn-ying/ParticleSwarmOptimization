@@ -7,7 +7,7 @@
 
 #define M_E 2.718281828 //Euler constant
 
-#define ParticleAmount 49    /**< the amount of the particles in the swarm */
+#define ParticleAmount 50    /**< the amount of the particles in the swarm */
 
 #define Dimension 30    /**< the dimension of the problem */
 
