@@ -486,7 +486,7 @@ void runMSPSO_analyze()
 				{
 					inputNetwork[i].reset();
 				}
-				inputNetwork = latticeConstruct();
+				inputNetwork = squareConstruct();
 
 				for (int arepeat = 0;arepeat != AlgoRepeatNum;++arepeat)
 				{
