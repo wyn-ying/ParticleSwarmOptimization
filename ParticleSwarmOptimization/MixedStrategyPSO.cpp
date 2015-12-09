@@ -468,10 +468,10 @@ void runMSPSO_analyze()
 	network inputNetwork;
 	srand((unsigned)time(0));
 	rand();
-	for (int funcID = 2;funcID <= 6;funcID += 2)
+	for (int funcID = 1;funcID <= 6;funcID += 2)
 	{
 		stringstream txtname;
-		txtname << "lattice-results-fig5-funcID=" << funcID << ".txt";
+		txtname << "fully-results-fig5-funcID=" << funcID << ".txt";
 		ofstream output(txtname.str());
 
 		for (int FIAmount = 0;FIAmount <= ParticleAmount;FIAmount += 5)	//population of FIPS particles
@@ -486,19 +486,13 @@ void runMSPSO_analyze()
 				{
 					inputNetwork[i].reset();
 				}
-				inputNetwork = latticeConstruct();
+				inputNetwork = fullyConnectedNetwConstruct();
 
 				for (int arepeat = 0;arepeat != AlgoRepeatNum;++arepeat)
 				{
 					cout << arepeat << "\t";
 					performance thisRun;
-					if (FIAmount == 50)
-					{
-						thisRun = MSPSO(inputNetwork, funcID, 49);
-					}
-					else {
-						thisRun = MSPSO(inputNetwork, funcID, FIAmount);
-					}
+					thisRun = MSPSO(inputNetwork, funcID, FIAmount);
 					avgFitness += thisRun.solution;
 					avgSpeed += thisRun.speed;
 					if (thisRun.speed != MaxIteration) {
