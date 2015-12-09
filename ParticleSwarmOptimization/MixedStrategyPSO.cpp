@@ -468,7 +468,7 @@ void runMSPSO_analyze()
 	network inputNetwork;
 	srand((unsigned)time(0));
 	rand();
-	for (int funcID = 2;funcID <= 6;funcID += 2)
+	for (int funcID = 1;funcID <= 6;funcID += 2)
 	{
 		stringstream txtname;
 		txtname << "results-fig5-funcID=" << funcID << ".txt";
@@ -486,13 +486,19 @@ void runMSPSO_analyze()
 				{
 					inputNetwork[i].reset();
 				}
-				inputNetwork = fullyConnectedNetwConstruct();
+				inputNetwork = latticeConstruct();
 
 				for (int arepeat = 0;arepeat != AlgoRepeatNum;++arepeat)
 				{
 					cout << arepeat << "\t";
 					performance thisRun;
-					thisRun = MSPSO(inputNetwork, funcID, FIAmount);
+					if (FIAmount == 50)
+					{
+						thisRun = MSPSO(inputNetwork, funcID, 49);
+					}
+					else {
+						thisRun = MSPSO(inputNetwork, funcID, FIAmount);
+					}
 					avgFitness += thisRun.solution;
 					avgSpeed += thisRun.speed;
 					if (thisRun.speed != MaxIteration) {
