@@ -7,7 +7,7 @@
 
 #define M_E 2.718281828 //Euler constant
 
-#define ParticleAmount 50    /**< the amount of the particles in the swarm */
+#define ParticleAmount 49    /**< the amount of the particles in the swarm */
 
 #define Dimension 30    /**< the dimension of the problem */
 
@@ -17,7 +17,7 @@
 
 #define B 2.05         /**< v=Chi*(v+B*r1*(pb-x)+B*r2*(lb-x)) */
 
-#define AlgoRepeatNum 100     /**< how many times the algorithm repeats */
+#define AlgoRepeatNum 50     /**< how many times the algorithm repeats */
 
 #define NetwRepeatNum 1     /**< how many times the network repeats */
 

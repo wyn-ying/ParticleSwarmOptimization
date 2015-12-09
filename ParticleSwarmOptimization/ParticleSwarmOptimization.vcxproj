@@ -19,6 +19,7 @@
     <ClInclude Include="functions.h" />
     <ClInclude Include="hierarchyNetwork.h" />
     <ClInclude Include="HierarchyPSO.h" />
+    <ClInclude Include="latticeNetwork.h" />
     <ClInclude Include="MixedStrategyPSO.h" />
     <ClInclude Include="network.h" />
     <ClInclude Include="Networks.h" />
@@ -33,6 +34,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="ringNetwork.h" />
     <ClInclude Include="ScaleFreeNetwork.h" />
+    <ClInclude Include="squareNetwork.h" />
     <ClInclude Include="standardPSO.h" />
   </ItemGroup>
   <ItemGroup>
@@ -44,6 +46,7 @@
     <ClCompile Include="functions.cpp" />
     <ClCompile Include="hierarchyNetwork.cpp" />
     <ClCompile Include="HierarchyPSO.cpp" />
+    <ClCompile Include="latticeNetwork.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MixedStrategyPSO.cpp" />
     <ClCompile Include="network.cpp" />
@@ -55,6 +58,7 @@
     <ClCompile Include="randomNumGenerator.cpp" />
     <ClCompile Include="ringNetwork.cpp" />
     <ClCompile Include="ScaleFreeNetwork.cpp" />
+    <ClCompile Include="squareNetwork.cpp" />
     <ClCompile Include="standardPSO.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -466,70 +466,47 @@ void runMSPSO()
 void runMSPSO_analyze()
 {
 	network inputNetwork;
-	ofstream outputResults("results.txt");
 	srand((unsigned)time(0));
 	rand();
-
-	for (int k = 2;k <= 2;k += 1)	//2k is the degree of the particle in ring network
+	for (int funcID = 2;funcID <= 6;funcID += 2)
 	{
-		for (int funcID = 2;funcID <= 7;funcID += 2)
+		stringstream txtname;
+		txtname << "results-fig5-funcID=" << funcID << ".txt";
+		ofstream output(txtname.str());
+
+		for (int FIAmount = 0;FIAmount <= ParticleAmount;FIAmount += 5)	//population of FIPS particles
 		{
-			stringstream txtname;
-			txtname << "results-fig2-funcID=" << funcID << ".csv";
-			ofstream output(txtname.str());
-
-			for (int FIAmount = 0;FIAmount <= ParticleAmount;FIAmount += 5)	//population of FIPS particles
+			double avgFitness = 0;
+			int avgSpeed = 0;
+			int avgRate = 0;
+			//				cout<<"k="<<k<<"\t"<<"FIAmount="<<FIAmount<<"\t"<<"FuncID="<<funcID<<endl;
+			for (int nrepeat = 0;nrepeat != NetwRepeatNum;++nrepeat)
 			{
-				double avgFitness = 0;
-				int avgSpeed = 0;
-				int avgRate = 0;
-				array<double, MaxIteration / Interval + 1> avgFitnesses;
-				for (int i = 0; i < MaxIteration / Interval + 1; i++)
+				for (int i = 0;i != nodeNum;++i)
 				{
-					avgFitnesses[i] = 0;
+					inputNetwork[i].reset();
 				}
-				cout<<"k="<<k<<"\t"<<"FIAmount="<<FIAmount<<"\t"<<"FuncID="<<funcID<<endl;
-				for(int nrepeat=0;nrepeat!=NetwRepeatNum;++nrepeat)
-				{
-					for (int i=0;i!=nodeNum;++i)
-					{
-						inputNetwork[i].reset();
-					}
-					inputNetwork=ringConstruct(k);
+				inputNetwork = squareConstruct();
 
-					for(int arepeat=0;arepeat!=AlgoRepeatNum;++arepeat)
+				for (int arepeat = 0;arepeat != AlgoRepeatNum;++arepeat)
+				{
+					performance thisRun;
+					if (FIAmount == 50)
 					{
-						performance thisRun;
-						thisRun=MSPSO(inputNetwork,funcID,FIAmount);
-						for (int i = 0; i < MaxIteration / Interval + 1; i++)
-						{
-							avgFitnesses[i] += thisRun.solutions[i];
-						}
-						avgFitness += thisRun.solution;
-						avgSpeed += thisRun.speed;
-						if (thisRun.speed != MaxIteration) {
-							avgRate ++;
-						}
+						thisRun = MSPSO(inputNetwork, funcID, 49);
+					}
+					else {
+						thisRun = MSPSO(inputNetwork, funcID, FIAmount);
+					}
+					avgFitness += thisRun.solution;
+					avgSpeed += thisRun.speed;
+					if (thisRun.speed != MaxIteration) {
+						avgRate++;
 					}
 				}
-				output << FIAmount;
-				for (int i = 0; i < MaxIteration / Interval; i++)	//最后5000代输出不对，用solution取代，因此i!=51，到50即可
-				{
-					output << ',' << avgFitnesses[i]/ (NetwRepeatNum*AlgoRepeatNum);
-				}
-				output << ',' << avgFitness / (NetwRepeatNum*AlgoRepeatNum) << endl;
-					//<< avgFitness / (NetwRepeatNum*AlgoRepeatNum) << ","//输出avgFitnesses结果
-					/*
-					-------------------------
-					-------------------------
-					-------------------------
-					-------------------------
-					*/
-					//<< (double)avgSpeed / (NetwRepeatNum*AlgoRepeatNum) << ","
-					//<< (double)avgRate / (NetwRepeatNum*AlgoRepeatNum) << endl;
 			}
-			output.close();
+			output << avgFitness / (NetwRepeatNum*AlgoRepeatNum) << endl;
 		}
+		output.close();
 	}
-	outputResults.close();
 }
