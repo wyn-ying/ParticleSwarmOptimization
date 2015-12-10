@@ -492,7 +492,7 @@ void runMSPSO_analyze()
 				{
 					cout << arepeat << "\t";
 					performance thisRun;
-					thisRun = MSPSO(inputNetwork, funcID, FIAmount);
+					thisRun = MSPSO(inputNetwork, funcID, FIAmount);//lattice and square cant output to txt when 49
 					avgFitness += thisRun.solution;
 					avgSpeed += thisRun.speed;
 					if (thisRun.speed != MaxIteration) {
