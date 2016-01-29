@@ -468,7 +468,7 @@ void runMSPSO_analyze()
 	network inputNetwork;
 	srand((unsigned)time(0));
 	rand();
-	for (int funcID = 1;funcID <= 6;funcID += 2)
+	for (int funcID = 3;funcID <= 6;funcID += 3)
 	{
 		stringstream txtname;
 		txtname << "fully-results-fig5-funcID=" << funcID << ".txt";
@@ -486,7 +486,7 @@ void runMSPSO_analyze()
 				{
 					inputNetwork[i].reset();
 				}
-				inputNetwork = fullyConnectedNetwConstruct();
+				inputNetwork = ringConstruct(25);
 
 				for (int arepeat = 0;arepeat != AlgoRepeatNum;++arepeat)
 				{
