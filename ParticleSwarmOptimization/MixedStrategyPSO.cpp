@@ -476,7 +476,7 @@ void runMSPSO_analyze()
 	rand();
 
 	//
-	inputNetwork = HSWConstruct(2, 0.1);
+/*	inputNetwork = HSWConstruct(2, 0.1);
 	networkMatrix out = generateAdjacMatrix(inputNetwork);
 	for (int i = 0; i < nodeNum; i++) {
 		for (int j = 0;j < nodeNum; j++) {
@@ -484,9 +484,9 @@ void runMSPSO_analyze()
 		}
 		cout << endl;
 	}
-	system("pause");
+	system("pause");*/
 
-/*	for (int k = 2;k <= 2;k += 1)	//2k is the degree of the particle in ring network
+	for (int k = 2;k <= 2;k += 1)	//2k is the degree of the particle in ring network
 	{
 		for (int funcID = 1;funcID <= 6;funcID += 2)
 		{
@@ -542,5 +542,5 @@ void runMSPSO_analyze()
 			output.close();
 		}
 	}
-	outputResults.close();*/
+	outputResults.close();
 }
