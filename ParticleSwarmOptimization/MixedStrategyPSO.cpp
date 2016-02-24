@@ -505,14 +505,13 @@ void runMSPSO_analyze()
 					avgFitnesses[i] = 0;
 				}
 				//for(int nrepeat=0;nrepeat!=NetwRepeatNum;++nrepeat)
-				for (int p10 = 10; p10 >= 1;p10--)
+				for (int p10 = 10; p10 >= 10;p10--)
 				{
 					for (int i=0;i!=nodeNum;++i)
 					{
 						inputNetwork[i].reset();
 					}
 					inputNetwork=ringConstruct(k);
-					cout << "p=" << p10*0.1 << "\t" << "FuncID=" << funcID << endl;
 					for(int arepeat=0;arepeat!=AlgoRepeatNum;++arepeat)
 					{
 						performance thisRun;
