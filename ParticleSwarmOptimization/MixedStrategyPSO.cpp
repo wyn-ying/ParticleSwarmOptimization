@@ -488,10 +488,10 @@ void runMSPSO_analyze()
 
 	for (int k = 1;k <= 2;k += 1)	//2k is the degree of the particle in ring network
 	{
-		for (int funcID = 2;funcID <= 6;funcID += 2)
+		for (int funcID = 1;funcID <= 6;funcID += 2)
 		{
 			stringstream txtname;
-			txtname << "fully_funcID=" << funcID << ".csv";
+			txtname << "SF_funcID=" << funcID << ".csv";
 			ofstream output(txtname.str());
 
 			for (int FIAmount = 0;FIAmount <= 0 ;FIAmount += 5)	//population of FIPS particles
@@ -511,7 +511,7 @@ void runMSPSO_analyze()
 					{
 						inputNetwork[i].reset();
 					}
-					inputNetwork= fullyConnectedNetwConstruct();
+					inputNetwork= ScaleFreeNetworkConstruct(5,2);
 					for(int arepeat=0;arepeat!=AlgoRepeatNum;++arepeat)
 					{
 						performance thisRun;
