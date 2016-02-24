@@ -488,10 +488,10 @@ void runMSPSO_analyze()
 
 	for (int k = 2;k <= 2;k += 1)	//2k is the degree of the particle in ring network
 	{
-		for (int funcID = 1;funcID <= 6;funcID += 2)
+		for (int funcID = 2;funcID <= 6;funcID += 2)
 		{
 			stringstream txtname;
-			txtname << "HSW_funcID=" << funcID << ".csv";
+			txtname << "ring_funcID=" << funcID << ".csv";
 			ofstream output(txtname.str());
 
 			for (int FIAmount = 0;FIAmount <= 0 ;FIAmount += 5)	//population of FIPS particles
@@ -511,7 +511,7 @@ void runMSPSO_analyze()
 					{
 						inputNetwork[i].reset();
 					}
-					inputNetwork=HSWConstruct(k,0.1*p10);
+					inputNetwork=ringConstruct(k);
 					cout << "p=" << p10*0.1 << "\t" << "FuncID=" << funcID << endl;
 					for(int arepeat=0;arepeat!=AlgoRepeatNum;++arepeat)
 					{
@@ -526,7 +526,9 @@ void runMSPSO_analyze()
 						if (thisRun.speed != MaxIteration) {
 							avgRate ++;
 						}
+						cout << "times=" << arepeat << "\t";
 					}
+					
 				}
 				for (int i = 0; i < 28; i++)	//最后5000代输出不对，用solution取代，因此i!=51，到50即可
 				{
