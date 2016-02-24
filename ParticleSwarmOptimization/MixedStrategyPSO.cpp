@@ -486,8 +486,7 @@ void runMSPSO_analyze()
 	}
 	system("pause");*/
 
-	//for (int k = 2;k <= 2;k += 1)	//2k is the degree of the particle in ring network
-	int k = 2;
+	for (int k = 2;k <= 2;k += 1)	//2k is the degree of the particle in ring network
 	{
 		for (int funcID = 1;funcID <= 6;funcID += 2)
 		{
@@ -495,8 +494,7 @@ void runMSPSO_analyze()
 			txtname << "HSW_funcID=" << funcID << ".csv";
 			ofstream output(txtname.str());
 
-			//for (int FIAmount = 0;FIAmount <= ParticleAmount;FIAmount += 5)	//population of FIPS particles
-			int FIAmount = 0;
+			for (int FIAmount = 0;FIAmount <= 0 ;FIAmount += 5)	//population of FIPS particles
 			{
 				double avgFitness = 0;
 				int avgSpeed = 0;
@@ -507,14 +505,14 @@ void runMSPSO_analyze()
 					avgFitnesses[i] = 0;
 				}
 				//for(int nrepeat=0;nrepeat!=NetwRepeatNum;++nrepeat)
-				for (int i = 10; i <= 1;i++)
+				for (int p10 = 10; p10 >= 1;p10--)
 				{
 					for (int i=0;i!=nodeNum;++i)
 					{
 						inputNetwork[i].reset();
 					}
-					inputNetwork=HSWConstruct(k,0.1*i);
-					cout << "p=" << i*0.1 << "\t" << "FuncID=" << funcID << endl;
+					inputNetwork=HSWConstruct(k,0.1*p10);
+					cout << "p=" << p10*0.1 << "\t" << "FuncID=" << funcID << endl;
 					for(int arepeat=0;arepeat!=AlgoRepeatNum;++arepeat)
 					{
 						performance thisRun;
@@ -530,7 +528,6 @@ void runMSPSO_analyze()
 						}
 					}
 				}
-				output << FIAmount;
 				for (int i = 0; i < 28; i++)	//最后5000代输出不对，用solution取代，因此i!=51，到50即可
 				{
 					output << ',' << avgFitnesses[i]/ (NetwRepeatNum*AlgoRepeatNum);
