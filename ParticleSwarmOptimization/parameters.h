@@ -9,9 +9,9 @@
 
 #define ParticleAmount 50    /**< the amount of the particles in the swarm */
 
-#define Dimension 30    /**< the dimension of the problem */
+#define Dimension 16    /**< the dimension of the problem */
 
-#define MaxIteration 5000      /**< the maximum iterations */
+#define MaxIteration 2000      /**< the maximum iterations */
 
 #define Chi 0.7298
 

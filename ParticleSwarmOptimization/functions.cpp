@@ -151,3 +151,37 @@ double Noise_1Calc(array<double,Dimension> x)
 	return fx;
 }
 
+benchmarkFunc IIR(0, 3, 20);
+
+const long double Pi = std::_Pi;
+double IIRCalcE(array<double, Dimension> x, double w1, double w2)
+{
+	double Ar = x[0] + x[1] * cos(w2) + x[2] * cos(2 * w2)
+			  + x[3] * cos(w1) + x[4] * cos(w1 + w2) + x[5] * cos(w1 + 2 * w2)
+			  + x[6] * cos(2 * w1) + x[7] * cos(2 * w1 + w2) + x[8] * cos(2 * (w1 + w2));
+	double Ai = x[1] * sin(w2) + x[2] * sin(2 * w2)
+			  + x[3] * sin(w1) + x[4] * sin(w1 + w2) + x[5] * sin(w1 + 2 * w2)
+			  + x[6] * sin(2 * w1) + x[7] * sin(2 * w1 + w2) + x[8] * sin(2 * (w1 + w2));
+	double B1r = 1 + x[9] * cos(w1) + x[11] * cos(w2) + x[13] * cos(w1 + w2);
+	double B1i = x[9] * sin(w1) + x[11] * sin(w2) + x[13] * sin(w1 + w2);
+	double B2r = 1 + x[10] * cos(w1) + x[12] * cos(w2) + x[14] * cos(w1 + w2);
+	double B2i = x[10] * sin(w1) + x[12] * sin(w2) + x[14] * sin(w1 + w2);
+	
+	double M = x[15] * sqrt(Ar*Ar + Ai*Ai) / (B1i*B1i + B1r*B1r) / (B2i*B2i + B2r*B2r);
+	double Md, threshold = sqrt(w1*w1 + w2*w2);
+	if (threshold > 0.12*Pi) Md = 1;
+	else if (threshold > 0.08*Pi) Md = 0.5;
+	else Md = 0;
+	return (abs(M) - Md)*(abs(M) - Md);
+}
+
+double IIRCalc(array<double, Dimension> x)
+{
+	double fx = 0;
+	for (int i = 0;i <= 50;i++) {
+		for (int j = 0;j <= 50;j++) {
+			fx += IIRCalcE(x, (double)i*Pi / 50, (double)j*Pi/50);
+		}
+	}
+	return fx;
+}

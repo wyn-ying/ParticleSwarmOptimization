@@ -18,6 +18,7 @@ extern benchmarkFunc weierstrass;
 extern benchmarkFunc noncontinuousRas;
 extern benchmarkFunc schwefel_P2_22;
 extern benchmarkFunc noise_1;
+extern benchmarkFunc IIR;
 
 extern particle swarm[ParticleAmount];
 extern array<double,Dimension> gbest;

@@ -44,4 +44,6 @@ double Schwefel_P2_22Calc(array<double,Dimension>);
 
 double Noise_1Calc(array<double,Dimension>);
 
+double IIRCalc(array<double, Dimension>);
+
 #endif // FUNCTIONS_H

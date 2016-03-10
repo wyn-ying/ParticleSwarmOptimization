@@ -17,6 +17,8 @@ public:
 	int speed;
 	int FIPSisGbest;
 	int nonFIPSisGbest;
+	array<double, Dimension> gbest;
+
 protected:
 private:
 };

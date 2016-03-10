@@ -55,6 +55,9 @@ void InitSwarmOfMSPSO(network _network,int funcID)
 				swarm[i].position[j]=getRandWithin_0_1()*(noise_1.upper-noise_1.lower)+noise_1.lower;
 				swarm[i].velocity[j]=getRandWithin_0_1()*(noise_1.upper-noise_1.lower)+noise_1.lower;
 				break;
+			case 11:
+				swarm[i].position[j] = getRandWithin_0_1()*(IIR.upper - IIR.lower) + IIR.lower;
+				swarm[i].velocity[j] = getRandWithin_0_1()*(IIR.upper - IIR.lower) + IIR.lower;
 			}
 		}
 	}
@@ -82,6 +85,8 @@ void InitSwarmOfMSPSO(network _network,int funcID)
 			swarm[i].fitness=Schwefel_P2_22Calc(swarm[i].position);break;
 		case 10:
 			swarm[i].fitness=Noise_1Calc(swarm[i].position);break;
+		case 11:
+			swarm[i].fitness = IIRCalc(swarm[i].position);break;
 
 		}
 		/**< set the initial value as the pbest and lbest */
@@ -192,6 +197,8 @@ void UpdateSwarmOfMSPSO(int funcID, int FIPSAmount)//the amount of particles tha
 			swarm[i].fitness=Schwefel_P2_22Calc(swarm[i].position);break;
 		case 10:
 			swarm[i].fitness=Noise_1Calc(swarm[i].position);break;
+		case 11:
+			swarm[i].fitness = IIRCalc(swarm[i].position);break;
 		}
 	}
 }
@@ -297,10 +304,17 @@ performance MSPSO(network _network,int funcID,int FIPSAmount)
 			}
 			break;
 		case 10:
-			if(fgbest<noise_1.goal && hasConverged==0)
+			if (fgbest<noise_1.goal && hasConverged == 0)
 			{
-				hasConverged=1;
-				resultOfThisRun.speed=iter;
+				hasConverged = 1;
+				resultOfThisRun.speed = iter;
+			}
+			break;
+		case 11:
+			if (fgbest<IIR.goal && hasConverged == 0)
+			{
+				hasConverged = 1;
+				resultOfThisRun.speed = iter;
 			}
 			break;
 		}
@@ -312,6 +326,7 @@ performance MSPSO(network _network,int funcID,int FIPSAmount)
 		++iter;
 	}
 	resultOfThisRun.solution=fgbest;
+	resultOfThisRun.gbest = gbest;
 	return resultOfThisRun;
 }
 
@@ -470,24 +485,25 @@ void runMSPSO_analyze()
 	srand((unsigned)time(0));
 	rand();
 
-	for (int k = 2;k <= 2;k += 1)	//2k is the degree of the particle in ring network
+	for (int k = 1;k <= 5;k += 1)	//2k is the degree of the particle in ring network
 	{
-		for (int funcID = 2;funcID <= 7;funcID += 2)
+		for (int funcID = 11;funcID <= 11;funcID += 2)
 		{
 			stringstream txtname;
-			txtname << "results-fig2-funcID=" << funcID << ".csv";
+			txtname << "results-ex-funcID=" << funcID << ".csv";
 			ofstream output(txtname.str());
 
 			for (int FIAmount = 0;FIAmount <= ParticleAmount;FIAmount += 5)	//population of FIPS particles
 			{
-				double avgFitness = 0;
+				performance bestRun;
+			/*	double avgFitness = 0;
 				int avgSpeed = 0;
 				int avgRate = 0;
 				array<double, MaxIteration / Interval + 1> avgFitnesses;
 				for (int i = 0; i < MaxIteration / Interval + 1; i++)
 				{
 					avgFitnesses[i] = 0;
-				}
+				}*/
 				cout<<"k="<<k<<"\t"<<"FIAmount="<<FIAmount<<"\t"<<"FuncID="<<funcID<<endl;
 				for(int nrepeat=0;nrepeat!=NetwRepeatNum;++nrepeat)
 				{
@@ -501,7 +517,7 @@ void runMSPSO_analyze()
 					{
 						performance thisRun;
 						thisRun=MSPSO(inputNetwork,funcID,FIAmount);
-						for (int i = 0; i < MaxIteration / Interval + 1; i++)
+						/*for (int i = 0; i < MaxIteration / Interval + 1; i++)
 						{
 							avgFitnesses[i] += thisRun.solutions[i];
 						}
@@ -509,15 +525,23 @@ void runMSPSO_analyze()
 						avgSpeed += thisRun.speed;
 						if (thisRun.speed != MaxIteration) {
 							avgRate ++;
+						}*/
+						if (thisRun.solution < bestRun.solution) {
+							bestRun = thisRun;
 						}
 					}
 				}
 				output << FIAmount;
 				for (int i = 0; i < MaxIteration / Interval; i++)	//最后5000代输出不对，用solution取代，因此i!=51，到50即可
 				{
-					output << ',' << avgFitnesses[i]/ (NetwRepeatNum*AlgoRepeatNum);
+					output << ',' << bestRun.solutions[i]/ (NetwRepeatNum*AlgoRepeatNum);
 				}
-				output << ',' << avgFitness / (NetwRepeatNum*AlgoRepeatNum) << endl;
+				output << ',' << bestRun.solution / (NetwRepeatNum*AlgoRepeatNum) << ',';
+				//还要输出gbest
+				for (int i = 0;i < Dimension; i++) {
+					output << ',' << bestRun.gbest[i];
+				}
+				output << endl;
 					//<< avgFitness / (NetwRepeatNum*AlgoRepeatNum) << ","//输出avgFitnesses结果
 					/*
 					-------------------------
