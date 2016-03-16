@@ -9,7 +9,7 @@
 
 #define ParticleAmount 50    /**< the amount of the particles in the swarm */
 
-#define Dimension 16    /**< the dimension of the problem */
+#define Dimension 15    /**< the dimension of the problem */
 
 #define MaxIteration 2000      /**< the maximum iterations */
 
@@ -17,7 +17,7 @@
 
 #define B 2.05         /**< v=Chi*(v+B*r1*(pb-x)+B*r2*(lb-x)) */
 
-#define AlgoRepeatNum 100     /**< how many times the algorithm repeats */
+#define AlgoRepeatNum 30     /**< how many times the algorithm repeats */
 
 #define NetwRepeatNum 1     /**< how many times the network repeats */
 

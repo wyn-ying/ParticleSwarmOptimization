@@ -1,5 +1,22 @@
 #include "MixedStrategyPSO.h"
 #include<sstream>
+long int FEs;
+int ConstraintedCondition(array<double, Dimension> x) {
+	/*if (1 + x[12] < 0) return 0;
+	if (1 - x[12] > 0) return 0;
+	if (1 + x[13] < 0) return 0;
+	if (1 - x[13] > 0) return 0;
+	if (abs(x[8] + x[10]) > abs(1 + x[12])) return 0;
+	if (abs(x[8] - x[10]) > abs(1 - x[12])) return 0;
+	if (abs(x[9] + x[11]) > abs(1 + x[13])) return 0;
+	if (abs(x[9] - x[11]) > abs(1 - x[13])) return 0;*/
+	for (int i = 0; i < Dimension; i++) if (abs(x[i])>3) return 0;
+	if (abs(x[8] + x[10]) - 1 >= x[12]) return 0;
+	if (1 - abs(x[8] - x[10]) <= x[12]) return 0;
+	if (abs(x[9] + x[11]) - 1 >= x[13]) return 0;
+	if (1 - abs(x[9] - x[11]) <= x[13]) return 0;
+	return 1;
+}
 void InitSwarmOfMSPSO(network _network,int funcID)
 {	
 	for(int i=0;i!=ParticleAmount;++i)
@@ -11,55 +28,59 @@ void InitSwarmOfMSPSO(network _network,int funcID)
 	}
 	for(int i=0;i!=ParticleAmount;++i)
 	{
-		for(int j=0;j!=Dimension;++j)
-		{
-			switch(funcID)
+		do {
+			for (int j = 0;j != Dimension;++j)
 			{
-			case 1:
-				swarm[i].position[j]=getRandWithin_0_1()*(sphere.upper-sphere.lower)+sphere.lower;
-				swarm[i].velocity[j]=getRandWithin_0_1()*(sphere.upper-sphere.lower)+sphere.lower;
-				break;
-			case 2:
-				swarm[i].position[j]=getRandWithin_0_1()*(rosenbrock.upper-rosenbrock.lower)+rosenbrock.lower;
-				swarm[i].velocity[j]=getRandWithin_0_1()*(rosenbrock.upper-rosenbrock.lower)+rosenbrock.lower;
-				break;
-			case 3:
-				swarm[i].position[j]=getRandWithin_0_1()*(rastrigin.upper-rastrigin.lower)+rastrigin.lower;
-				swarm[i].velocity[j]=getRandWithin_0_1()*(rastrigin.upper-rastrigin.lower)+rastrigin.lower;
-				break;
-			case 4:
-				swarm[i].position[j]=getRandWithin_0_1()*(qua.upper-qua.lower)+qua.lower;
-				swarm[i].velocity[j]=getRandWithin_0_1()*(qua.upper-qua.lower)+qua.lower;
-				break;
-			case 5:
-				swarm[i].position[j]=getRandWithin_0_1()*(griwank.upper-griwank.lower)+griwank.lower;
-				swarm[i].velocity[j]=getRandWithin_0_1()*(griwank.upper-griwank.lower)+griwank.lower;
-				break;
-			case 6:
-				swarm[i].position[j]=getRandWithin_0_1()*(ackley.upper-ackley.lower)+ackley.lower;
-				swarm[i].velocity[j]=getRandWithin_0_1()*(ackley.upper-ackley.lower)+ackley.lower;
-				break;
-			case 7:
-				swarm[i].position[j]=getRandWithin_0_1()*(weierstrass.upper-weierstrass.lower)+weierstrass.lower;
-				swarm[i].velocity[j]=getRandWithin_0_1()*(weierstrass.upper-weierstrass.lower)+weierstrass.lower;
-				break;
-			case 8:
-				swarm[i].position[j]=getRandWithin_0_1()*(noncontinuousRas.upper-noncontinuousRas.lower)+noncontinuousRas.lower;
-				swarm[i].velocity[j]=getRandWithin_0_1()*(noncontinuousRas.upper-noncontinuousRas.lower)+noncontinuousRas.lower;
-				break;
-			case 9:
-				swarm[i].position[j]=getRandWithin_0_1()*(schwefel_P2_22.upper-schwefel_P2_22.lower)+schwefel_P2_22.lower;
-				swarm[i].velocity[j]=getRandWithin_0_1()*(schwefel_P2_22.upper-schwefel_P2_22.lower)+schwefel_P2_22.lower;
-				break;
-			case 10:
-				swarm[i].position[j]=getRandWithin_0_1()*(noise_1.upper-noise_1.lower)+noise_1.lower;
-				swarm[i].velocity[j]=getRandWithin_0_1()*(noise_1.upper-noise_1.lower)+noise_1.lower;
-				break;
-			case 11:
-				swarm[i].position[j] = getRandWithin_0_1()*(IIR.upper - IIR.lower) + IIR.lower;
-				swarm[i].velocity[j] = getRandWithin_0_1()*(IIR.upper - IIR.lower) + IIR.lower;
+				switch (funcID)
+				{
+				case 1:
+					swarm[i].position[j] = getRandWithin_0_1()*(sphere.upper - sphere.lower) + sphere.lower;
+					swarm[i].velocity[j] = getRandWithin_0_1()*(sphere.upper - sphere.lower) + sphere.lower;
+					break;
+				case 2:
+					swarm[i].position[j] = getRandWithin_0_1()*(rosenbrock.upper - rosenbrock.lower) + rosenbrock.lower;
+					swarm[i].velocity[j] = getRandWithin_0_1()*(rosenbrock.upper - rosenbrock.lower) + rosenbrock.lower;
+					break;
+				case 3:
+					swarm[i].position[j] = getRandWithin_0_1()*(rastrigin.upper - rastrigin.lower) + rastrigin.lower;
+					swarm[i].velocity[j] = getRandWithin_0_1()*(rastrigin.upper - rastrigin.lower) + rastrigin.lower;
+					break;
+				case 4:
+					swarm[i].position[j] = getRandWithin_0_1()*(qua.upper - qua.lower) + qua.lower;
+					swarm[i].velocity[j] = getRandWithin_0_1()*(qua.upper - qua.lower) + qua.lower;
+					break;
+				case 5:
+					swarm[i].position[j] = getRandWithin_0_1()*(griwank.upper - griwank.lower) + griwank.lower;
+					swarm[i].velocity[j] = getRandWithin_0_1()*(griwank.upper - griwank.lower) + griwank.lower;
+					break;
+				case 6:
+					swarm[i].position[j] = getRandWithin_0_1()*(ackley.upper - ackley.lower) + ackley.lower;
+					swarm[i].velocity[j] = getRandWithin_0_1()*(ackley.upper - ackley.lower) + ackley.lower;
+					break;
+				case 7:
+					swarm[i].position[j] = getRandWithin_0_1()*(weierstrass.upper - weierstrass.lower) + weierstrass.lower;
+					swarm[i].velocity[j] = getRandWithin_0_1()*(weierstrass.upper - weierstrass.lower) + weierstrass.lower;
+					break;
+				case 8:
+					swarm[i].position[j] = getRandWithin_0_1()*(noncontinuousRas.upper - noncontinuousRas.lower) + noncontinuousRas.lower;
+					swarm[i].velocity[j] = getRandWithin_0_1()*(noncontinuousRas.upper - noncontinuousRas.lower) + noncontinuousRas.lower;
+					break;
+				case 9:
+					swarm[i].position[j] = getRandWithin_0_1()*(schwefel_P2_22.upper - schwefel_P2_22.lower) + schwefel_P2_22.lower;
+					swarm[i].velocity[j] = getRandWithin_0_1()*(schwefel_P2_22.upper - schwefel_P2_22.lower) + schwefel_P2_22.lower;
+					break;
+				case 10:
+					swarm[i].position[j] = getRandWithin_0_1()*(noise_1.upper - noise_1.lower) + noise_1.lower;
+					swarm[i].velocity[j] = getRandWithin_0_1()*(noise_1.upper - noise_1.lower) + noise_1.lower;
+					break;
+				case 11:
+					//some constraint condition
+					swarm[i].position[j] = getRandWithin_0_1()*(IIR.upper - IIR.lower) + IIR.lower;
+					swarm[i].velocity[j] = getRandWithin_0_1()*(IIR.upper - IIR.lower) + IIR.lower;
+
+				}
 			}
-		}
+		} while (!ConstraintedCondition(swarm[i].position));
 	}
 	for(int i=0;i!=ParticleAmount;++i)
 	{
@@ -86,7 +107,7 @@ void InitSwarmOfMSPSO(network _network,int funcID)
 		case 10:
 			swarm[i].fitness=Noise_1Calc(swarm[i].position);break;
 		case 11:
-			swarm[i].fitness = IIRCalc(swarm[i].position);break;
+			swarm[i].fitness = IIRCalc(swarm[i].position);FEs += 1;break;
 
 		}
 		/**< set the initial value as the pbest and lbest */
@@ -198,7 +219,10 @@ void UpdateSwarmOfMSPSO(int funcID, int FIPSAmount)//the amount of particles tha
 		case 10:
 			swarm[i].fitness=Noise_1Calc(swarm[i].position);break;
 		case 11:
-			swarm[i].fitness = IIRCalc(swarm[i].position);break;
+			if (ConstraintedCondition(swarm[i].position)) {
+				swarm[i].fitness = IIRCalc(swarm[i].position);FEs += 1;
+			}
+			break;
 		}
 	}
 }
@@ -484,18 +508,20 @@ void runMSPSO_analyze()
 	ofstream outputResults("results.txt");
 	srand((unsigned)time(0));
 	rand();
-
-	for (int k = 1;k <= 5;k += 1)	//2k is the degree of the particle in ring network
+	FEs = 0;
+	long int bestFEs = 0;
+	for (int k = 1;k <= 1;k += 1)	//2k is the degree of the particle in ring network
 	{
 		for (int funcID = 11;funcID <= 11;funcID += 2)
 		{
 			stringstream txtname;
-			txtname << "results-ex-funcID=" << funcID << ".csv";
+			txtname << "results-ex-funcID=" << funcID <<"_k=" <<k<< ".csv";
 			ofstream output(txtname.str());
 
 			for (int FIAmount = 0;FIAmount <= ParticleAmount;FIAmount += 5)	//population of FIPS particles
 			{
 				performance bestRun;
+				bestRun.solution = 100000;//初始设大点，后面好更新
 			/*	double avgFitness = 0;
 				int avgSpeed = 0;
 				int avgRate = 0;
@@ -516,6 +542,7 @@ void runMSPSO_analyze()
 					for(int arepeat=0;arepeat!=AlgoRepeatNum;++arepeat)
 					{
 						performance thisRun;
+						FEs = 0;
 						thisRun=MSPSO(inputNetwork,funcID,FIAmount);
 						/*for (int i = 0; i < MaxIteration / Interval + 1; i++)
 						{
@@ -528,10 +555,11 @@ void runMSPSO_analyze()
 						}*/
 						if (thisRun.solution < bestRun.solution) {
 							bestRun = thisRun;
+							bestFEs = FEs;
 						}
 					}
 				}
-				output << FIAmount;
+				output << FIAmount << ',' << bestFEs;
 				for (int i = 0; i < MaxIteration / Interval; i++)	//最后5000代输出不对，用solution取代，因此i!=51，到50即可
 				{
 					output << ',' << bestRun.solutions[i]/ (NetwRepeatNum*AlgoRepeatNum);
