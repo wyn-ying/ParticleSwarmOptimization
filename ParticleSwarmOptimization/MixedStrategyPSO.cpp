@@ -510,7 +510,7 @@ void runMSPSO_analyze()
 	rand();
 	FEs = 0;
 	long int bestFEs = 0;
-	for (int k = 1;k <= 1;k += 1)	//2k is the degree of the particle in ring network
+	for (int k = 20;k <= 20;k += 1)	//2k is the degree of the particle in ring network
 	{
 		for (int funcID = 11;funcID <= 11;funcID += 2)
 		{

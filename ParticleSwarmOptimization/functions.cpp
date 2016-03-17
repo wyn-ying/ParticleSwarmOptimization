@@ -167,7 +167,7 @@ double IIRCalcE(array<double, Dimension> x, double w1, double w2)
 	double B2r = 1 + x[9] * cos(w1) + x[11] * cos(w2) + x[13] * cos(w1 + w2);
 	double B2i = x[9] * sin(w1) + x[11] * sin(w2) + x[13] * sin(w1 + w2);
 	
-	double M = x[14] * sqrt(Ar*Ar + Ai*Ai) / (B1i*B1i + B1r*B1r) / (B2i*B2i + B2r*B2r);
+	double M = x[14] * sqrt((Ar*Ar + Ai*Ai) / (B1i*B1i + B1r*B1r) / (B2i*B2i + B2r*B2r));
 	double Md, threshold = sqrt(w1*w1 + w2*w2);
 	if (threshold < 0.08*Pi) Md = 1;
 	else if (threshold < 0.12*Pi) Md = 0.5;
