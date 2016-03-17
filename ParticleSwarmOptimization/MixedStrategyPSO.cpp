@@ -220,7 +220,7 @@ performance MSPSO(network _network,int funcID,int FIPSAmount)
 	int hasConverged=0;
 	performance resultOfThisRun;
 	DivideSwarm(FIPSAmount);
-	while(iter < MaxIteration+5000)
+	while(iter < 3000)
 	{
 		UpdateSwarmOfMSPSO(funcID,FIPSAmount);
 		setPbest();
@@ -486,15 +486,15 @@ void runMSPSO_analyze()
 	}
 	system("pause");*/
 
-	for (int k = 1;k <= 2;k += 1)	//2k is the degree of the particle in ring network
+	for (int k = 2;k <= 2;k += 1)	//2k is the degree of the particle in ring network
 	{
-		for (int funcID = 1;funcID <= 6;funcID += 2)
+		for (int funcID = 2;funcID <= 6;funcID += 2)
 		{
 			stringstream txtname;
-			txtname << "SF_funcID=" << funcID << ".csv";
+			txtname << "fully_funcID=" << funcID << ".csv";
 			ofstream output(txtname.str());
 
-			for (int FIAmount = 0;FIAmount <= 0 ;FIAmount += 5)	//population of FIPS particles
+			for (int FIAmount = 0;FIAmount <= 0;FIAmount += 5)	//population of FIPS particles
 			{
 				double avgFitness = 0;
 				int avgSpeed = 0;
@@ -511,33 +511,36 @@ void runMSPSO_analyze()
 					{
 						inputNetwork[i].reset();
 					}
-					inputNetwork= ScaleFreeNetworkConstruct(5,2);
+					inputNetwork= fullyConnectedNetwConstruct();
 					for(int arepeat=0;arepeat!=AlgoRepeatNum;++arepeat)
 					{
 						performance thisRun;
 						thisRun=MSPSO(inputNetwork,funcID,FIAmount);
-						for (int i = 0; i < 28; i++)
+						/*for (int i = 0; i < 28; i++)
 						{
 							avgFitnesses[i] += thisRun.solutions[i];
-						}
-						avgFitness += thisRun.solution;
-						avgSpeed += thisRun.speed;
+						}*/
+						output << thisRun.solution / (NetwRepeatNum*AlgoRepeatNum) << ","//输出avgFitnesses结果
+							<< (double)thisRun.speed / (NetwRepeatNum*AlgoRepeatNum) << ",";
 						if (thisRun.speed != MaxIteration) {
-							avgRate ++;
+							output << "1";
 						}
+						else {
+							output << "0";
+						}
+						output << endl;
 						cout << "times=" << arepeat << "\t";
 					}
 					
 				}
-				for (int i = 0; i < 28; i++)	//最后5000代输出不对，用solution取代，因此i!=51，到50即可
-				{
-					output << ',' << avgFitnesses[i]/ (NetwRepeatNum*AlgoRepeatNum);
-				}
-				output << ',' << avgFitness / (NetwRepeatNum*AlgoRepeatNum) << endl;
-					//<< avgFitness / (NetwRepeatNum*AlgoRepeatNum) << ","//输出avgFitnesses结果
-
-					//<< (double)avgSpeed / (NetwRepeatNum*AlgoRepeatNum) << ","
-					//<< (double)avgRate / (NetwRepeatNum*AlgoRepeatNum) << endl;
+				//for (int i = 0; i < 28; i++)	//最后5000代输出不对，用solution取代，因此i!=51，到50即可
+				//{
+				//	output << ',' << avgFitnesses[i]/ (NetwRepeatNum*AlgoRepeatNum);
+				//}
+				//output << ',' << avgFitness / (NetwRepeatNum*AlgoRepeatNum) << ","
+				//	<< avgFitness / (NetwRepeatNum*AlgoRepeatNum) << ","//输出avgFitnesses结果
+				//	<< (double)avgSpeed / (NetwRepeatNum*AlgoRepeatNum) << ","
+				//	<< (double)avgRate / (NetwRepeatNum*AlgoRepeatNum) << endl;
 			}
 			output.close();
 		}
