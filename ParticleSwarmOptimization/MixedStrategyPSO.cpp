@@ -510,7 +510,7 @@ void runMSPSO_analyze()
 	rand();
 	FEs = 0;
 	long int bestFEs = 0;
-	for (int k = 20;k <= 20;k += 1)	//2k is the degree of the particle in ring network
+	for (int k = 25;k <= 25;k += 1)	//2k is the degree of the particle in ring network
 	{
 		for (int funcID = 11;funcID <= 11;funcID += 2)
 		{
@@ -544,27 +544,17 @@ void runMSPSO_analyze()
 						performance thisRun;
 						FEs = 0;
 						thisRun=MSPSO(inputNetwork,funcID,FIAmount);
-						/*for (int i = 0; i < MaxIteration / Interval + 1; i++)
-						{
-							avgFitnesses[i] += thisRun.solutions[i];
-						}
-						avgFitness += thisRun.solution;
-						avgSpeed += thisRun.speed;
-						if (thisRun.speed != MaxIteration) {
-							avgRate ++;
-						}*/
+						
+						output << thisRun.solution << ",";//输出每次结果
+						
 						if (thisRun.solution < bestRun.solution) {
 							bestRun = thisRun;
 							bestFEs = FEs;
 						}
 					}
 				}
-				output << FIAmount << ',' << bestFEs;
-				for (int i = 0; i < MaxIteration / Interval; i++)	//最后5000代输出不对，用solution取代，因此i!=51，到50即可
-				{
-					output << ',' << bestRun.solutions[i]/ (NetwRepeatNum*AlgoRepeatNum);
-				}
-				output << ',' << bestRun.solution / (NetwRepeatNum*AlgoRepeatNum) << ',';
+
+				output << ',' << bestRun.solution << ',';
 				//还要输出gbest
 				for (int i = 0;i < Dimension; i++) {
 					output << ',' << bestRun.gbest[i];
