@@ -510,12 +510,12 @@ void runMSPSO_analyze()
 	rand();
 	FEs = 0;
 	long int bestFEs = 0;
-	for (int k = 25;k <= 25;k += 1)	//2k is the degree of the particle in ring network
+	for (int k = 20;k <= 20;k += 1)	//2k is the degree of the particle in ring network
 	{
 		for (int funcID = 11;funcID <= 11;funcID += 2)
 		{
 			stringstream txtname;
-			txtname << "results-ex-funcID=" << funcID <<"_k=" <<k<< ".csv";
+			txtname << "results-ex-funcID=" << funcID <<"_p=8_k=" <<k<< ".csv";
 			ofstream output(txtname.str());
 
 			for (int FIAmount = 0;FIAmount <= ParticleAmount;FIAmount += 5)	//population of FIPS particles

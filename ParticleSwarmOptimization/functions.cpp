@@ -172,7 +172,7 @@ double IIRCalcE(array<double, Dimension> x, double w1, double w2)
 	if (threshold < 0.08*Pi) Md = 1;
 	else if (threshold < 0.12*Pi) Md = 0.5;
 	else Md = 0;
-	return (abs(M) - Md)*(abs(M) - Md);
+	return pow((abs(M) - Md),8);
 }
 
 double IIRCalc(array<double, Dimension> x)
