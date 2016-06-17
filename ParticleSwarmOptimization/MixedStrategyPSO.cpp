@@ -211,7 +211,8 @@ int MSPSOsetGbest()
 
 performance MSPSO(network _network,int funcID,int FIPSAmount)
 {
-	int Interv[28] = { 0,10,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900,1000,2000,3000,4000,5000,6000,7000,8000,9000};
+	//int Interv[28] = { 0,10,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900,1000,2000,3000,4000,5000,6000,7000,8000,9000};
+	int Interv[9] = { 0, 1, 3, 10, 30, 100, 300, 1000, 3000 };
 	int cnt = 0;
 
 	InitSwarmOfMSPSO(_network,funcID);
@@ -219,7 +220,7 @@ performance MSPSO(network _network,int funcID,int FIPSAmount)
 	int hasConverged=0;
 	performance resultOfThisRun;
 	DivideSwarm(FIPSAmount);
-	while(iter < MaxIteration+5000)
+	while(iter <=3000)
 	{
 		UpdateSwarmOfMSPSO(funcID,FIPSAmount);
 		setPbest();
@@ -476,13 +477,13 @@ void runMSPSO_analyze()
 
 	for (int k = 2;k <= 2;k += 1)	//2k is the degree of the particle in ring network
 	{
-		for (int funcID = 2;funcID <= 6;funcID += 2)
+		for (int funcID = 7;funcID <= 7;funcID += 2)
 		{
 			stringstream txtname;
-			txtname << "results-fig2-funcID=" << funcID << ".csv";
+			txtname << "results-sf-fig2-funcID=" << funcID << ".csv";
 			ofstream output(txtname.str());
 
-			for (int FIAmount = 0;FIAmount <= ParticleAmount;FIAmount += 5)	//population of FIPS particles
+			for (int FIAmount = 0;FIAmount <= 0;FIAmount += 5)	//population of FIPS particles
 			{
 				double avgFitness = 0;
 				int avgSpeed = 0;
@@ -499,7 +500,7 @@ void runMSPSO_analyze()
 					{
 						inputNetwork[i].reset();
 					}
-					inputNetwork=ringConstruct(k);
+					inputNetwork=ScaleFreeNetworkConstruct(5,2);
 
 					for(int arepeat=0;arepeat!=AlgoRepeatNum;++arepeat)
 					{
@@ -517,11 +518,12 @@ void runMSPSO_analyze()
 					}
 				}
 				output << FIAmount;
-				for (int i = 0; i < 28; i++)	//最后5000代输出不对，用solution取代，因此i!=51，到50即可
+				for (int i = 0; i < 9; i++)	//最后5000代输出不对，用solution取代，因此i!=51，到50即可
 				{
-					output << ',' << avgFitnesses[i]/ (NetwRepeatNum*AlgoRepeatNum);
+					output << avgFitnesses[i]/ (NetwRepeatNum*AlgoRepeatNum)<<',';
 				}
-				output << ',' << avgFitness / (NetwRepeatNum*AlgoRepeatNum) << endl;
+				//output << ',' << avgFitness / (NetwRepeatNum*AlgoRepeatNum) << endl;
+				output << endl;
 					//<< avgFitness / (NetwRepeatNum*AlgoRepeatNum) << ","//输出avgFitnesses结果
 					/*
 					-------------------------
