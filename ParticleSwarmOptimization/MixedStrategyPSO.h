@@ -5,7 +5,6 @@
 #include "Networks.h"
 #include <algorithm>
 #include "ringNetwork.h"
-#include "HSWNetwork.h"
 
 void InitSwarmOfMSPSO(network,int);
 

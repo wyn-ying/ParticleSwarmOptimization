@@ -211,8 +211,7 @@ int MSPSOsetGbest()
 
 performance MSPSO(network _network,int funcID,int FIPSAmount)
 {
-//	int Interv[28] = { 0,10,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900,1000,2000,3000,4000,5000,6000,7000,8000,9000};
-	int Interv[28] = { 0,1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100,200,300,500,1000,2000,3000,5000,9000};
+	int Interv[28] = { 0,10,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900,1000,2000,3000,4000,5000,6000,7000,8000,9000};
 	int cnt = 0;
 
 	InitSwarmOfMSPSO(_network,funcID);
@@ -475,20 +474,9 @@ void runMSPSO_analyze()
 	srand((unsigned)time(0));
 	rand();
 
-	//
-	inputNetwork = HSWConstruct(2, 0.1);
-	networkMatrix out = generateAdjacMatrix(inputNetwork);
-	for (int i = 0; i < nodeNum; i++) {
-		for (int j = 0;j < nodeNum; j++) {
-			cout << out[i][j] << ' ';
-		}
-		cout << endl;
-	}
-	system("pause");
-
-/*	for (int k = 2;k <= 2;k += 1)	//2k is the degree of the particle in ring network
+	for (int k = 2;k <= 2;k += 1)	//2k is the degree of the particle in ring network
 	{
-		for (int funcID = 1;funcID <= 6;funcID += 2)
+		for (int funcID = 2;funcID <= 6;funcID += 2)
 		{
 			stringstream txtname;
 			txtname << "results-fig2-funcID=" << funcID << ".csv";
@@ -535,12 +523,17 @@ void runMSPSO_analyze()
 				}
 				output << ',' << avgFitness / (NetwRepeatNum*AlgoRepeatNum) << endl;
 					//<< avgFitness / (NetwRepeatNum*AlgoRepeatNum) << ","//Êä³öavgFitnesses½á¹û
-
+					/*
+					-------------------------
+					-------------------------
+					-------------------------
+					-------------------------
+					*/
 					//<< (double)avgSpeed / (NetwRepeatNum*AlgoRepeatNum) << ","
 					//<< (double)avgRate / (NetwRepeatNum*AlgoRepeatNum) << endl;
 			}
 			output.close();
 		}
 	}
-	outputResults.close();*/
+	outputResults.close();
 }

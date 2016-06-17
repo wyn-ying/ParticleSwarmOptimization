@@ -19,7 +19,6 @@
     <ClInclude Include="functions.h" />
     <ClInclude Include="hierarchyNetwork.h" />
     <ClInclude Include="HierarchyPSO.h" />
-    <ClInclude Include="HSWNetwork.h" />
     <ClInclude Include="MixedStrategyPSO.h" />
     <ClInclude Include="network.h" />
     <ClInclude Include="Networks.h" />
@@ -45,7 +44,6 @@
     <ClCompile Include="functions.cpp" />
     <ClCompile Include="hierarchyNetwork.cpp" />
     <ClCompile Include="HierarchyPSO.cpp" />
-    <ClCompile Include="HSWNetwork.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MixedStrategyPSO.cpp" />
     <ClCompile Include="network.cpp" />
