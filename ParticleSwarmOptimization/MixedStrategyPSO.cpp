@@ -445,18 +445,16 @@ void runMSPSO_analyze()
 	ofstream outputResults("results.txt");
 	srand((unsigned)time(0));
 	rand();
-
-	for (int k = 3;k <= 25 && k<5;k += 1)	//2k is the degree of the particle in ring network
+	for (int funcID = 1;funcID <= 5;funcID+=2)
 	{
-		stringstream txtname;
-		txtname << "results__k=" << k << ".csv";
-		ofstream output(txtname.str());
-		for (int FIAmount=0;FIAmount<=ParticleAmount;FIAmount+=5)	//population of FIPS particles?
+		for (int k = 2;k <= 2;k += 1)	//2k is the degree of the particle in ring network
 		{
-			int FIPSisGbest=0;
-			int nonFIPSisGbest=0;
-			for(int funcID=1;funcID<=1;++funcID)
+			stringstream txtname;
+			txtname << "fig1-sup-results-funcID="<< funcID << "-k="<< k  << ".csv";
+			ofstream output(txtname.str());
+			for (int FIAmount=0;FIAmount<=ParticleAmount;FIAmount+=5)	//population of FIPS particles?
 			{
+
 				cout<<"k="<<k<<"\t"<<"FIAmount="<<FIAmount<<"\t"<<"FuncID="<<funcID<<endl;
 				for(int nrepeat=0;nrepeat!=NetwRepeatNum;++nrepeat)
 				{
@@ -464,22 +462,20 @@ void runMSPSO_analyze()
 					{
 						inputNetwork[i].reset();
 					}
-					inputNetwork=ringConstruct(k);
+					inputNetwork = ScaleFreeNetworkConstruct(5, 2);
 
 					for(int arepeat=0;arepeat!=AlgoRepeatNum;++arepeat)
 					{
 						performance thisRun;
 						thisRun=MSPSO(inputNetwork,funcID,FIAmount);
-						FIPSisGbest+=thisRun.FIPSisGbest;
-						nonFIPSisGbest+=thisRun.nonFIPSisGbest;
+						output << thisRun.solution << ',';
 					}
 				}
+				output << endl;
 			}
-
-
-			output<<FIPSisGbest<<"\t"<<nonFIPSisGbest<<endl;
+			output.close();
 		}
-		output.close();
+		
 	}
 	outputResults.close();
 }
