@@ -102,6 +102,9 @@
     <ClInclude Include="ringNetwork.h">
       <Filter>头文件\network</Filter>
     </ClInclude>
+    <ClInclude Include="HSWNetwork.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="randomNumGenerator.cpp">
@@ -162,6 +165,9 @@
       <Filter>源文件\PSO\algorithms</Filter>
     </ClCompile>
     <ClCompile Include="ringNetwork.cpp">
+      <Filter>源文件\network</Filter>
+    </ClCompile>
+    <ClCompile Include="HSWNetwork.cpp">
       <Filter>源文件\network</Filter>
     </ClCompile>
   </ItemGroup>
